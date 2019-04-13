@@ -2,13 +2,14 @@
 %define current %(pkg-config gts --modversion --silence-errors)
 
 Summary: GNU Triangulated Surface Library (development snapshot)
-Name: gts-snapshot
+#Name: gts-snapshot
+Name: gts
 %if "%{current}" == ""
-Version: 0.7.6
+Version: 0.7.7
 %else
 Version: %{current}
 %endif
-Release: 8.%{alphatag}cvs%{?dist}
+Release: 8
 License: GPLv2
 %if 0%{?suse_version}
 Group: Productivity/Scientific/Other
@@ -17,7 +18,8 @@ Group: Applications/Engineering
 %endif
 URL: http://gts.sourceforge.net
 Packager: Matthieu Castellazzi <m.castellazzi@niwa.co.nz>
-Source0: gts-snapshot.tar.gz
+#Source0: gts-snapshot.tar.gz
+Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %if 0%{?suse_version}
@@ -70,7 +72,7 @@ This package contains the GTS Reference, in HTML format.
 
 
 %prep
-%setup -q -n gts-snapshot
+%setup -q -n %{name}-%{version}
 
 %build
 RPM_OPT_FLAGS="$RPM_OPT_FLAGS -fPIC -DPIC"
@@ -91,7 +93,7 @@ else
 fi
 
 %{__make}
-%{__make} -C doc scan templates sgml html
+#%{__make} -C doc scan templates sgml html
 
 
 %install
@@ -127,6 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/gtsdelaunay
 %{_bindir}/gts2dxf
 %{_bindir}/gts2oogl
+%{_bindir}/gts2obj
 %{_bindir}/gts2stl
 %{_bindir}/gtscheck
 %{_bindir}/gtscompare
@@ -148,7 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(-,root,root)
-%doc COPYING doc/html/*.html
+#%doc COPYING doc/html/*.html
 
 %changelog
 * Tue Nov 03 2009 Matthieu Castellazzi <m.castellazzi@niwa.co.nz> - 8

@@ -4,11 +4,13 @@ SUBDIRS = src tools examples doc test debian
 
 OSC_DIR=$(HOME)/local/src/osc/home:popinet/$(PACKAGE)-snapshot
 
+EXTRA_DIST=gts.spec
+
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gts.pc
 
-ChangeLog:
-	darcs changes > ChangeLog
+#ChangeLog:
+#	darcs changes > ChangeLog
 
 debian-snapshot: config.h
 	darcs changes > ChangeLog
